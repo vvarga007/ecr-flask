@@ -2,7 +2,7 @@
 resource "aws_ecr_repository" "repository" {
   name                 = var.repository_name
   image_tag_mutability = "IMMUTABLE"
-  force_delete = true
+  force_delete         = true
 
 
   image_scanning_configuration {

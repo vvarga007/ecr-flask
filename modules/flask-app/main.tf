@@ -1,6 +1,5 @@
 locals {
-  region = "us-east-1"
-  name   = "fargate-cluster"
+  name = "fargate-cluster"
 
   vpc_cidr = "10.0.0.0/16"
   azs      = slice(data.aws_availability_zones.available.names, 0, 3)
@@ -35,7 +34,7 @@ module "ecs_cluster" {
   }
 
   tags = merge(
-    {}, var.tags)
+  {}, var.tags)
 }
 
 ################################################################################
@@ -61,7 +60,7 @@ module "ecs_service" {
 
     (local.container_name) = {
       cpu       = 64
-      memory    = 64
+      memory    = 96
       essential = true
       image     = "797893214126.dkr.ecr.us-east-1.amazonaws.com/flask_app:latest"
       port_mappings = [
@@ -73,7 +72,7 @@ module "ecs_service" {
         }
       ]
       enable_cloudwatch_logging = true
-      memory_reservation = 64
+      memory_reservation        = 96
 
 
     }
@@ -123,7 +122,7 @@ module "ecs_service" {
   }
 
   tags = merge(
-    {}, var.tags)
+  {}, var.tags)
 }
 
 
@@ -135,7 +134,7 @@ resource "aws_service_discovery_http_namespace" "this" {
   name        = local.name
   description = "CloudMap namespace for ${local.name}"
   tags = merge(
-    {}, var.tags)
+  {}, var.tags)
 }
 
 module "alb" {
@@ -203,7 +202,7 @@ module "alb" {
   }
 
   tags = merge(
-    {}, var.tags)
+  {}, var.tags)
 }
 
 module "vpc" {
@@ -221,5 +220,5 @@ module "vpc" {
   single_nat_gateway = true
 
   tags = merge(
-    {}, var.tags)
+  {}, var.tags)
 }
