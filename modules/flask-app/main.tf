@@ -72,8 +72,10 @@ module "ecs_service" {
           protocol      = "tcp"
         }
       ]
-      enable_cloudwatch_logging = false
+      enable_cloudwatch_logging = true
       memory_reservation = 64
+
+
     }
   }
 
@@ -146,9 +148,6 @@ module "alb" {
 
   vpc_id  = module.vpc.vpc_id
   subnets = module.vpc.private_subnets
-
-  # For example only
-  enable_deletion_protection = false
 
   # Security Group
   security_group_ingress_rules = {
