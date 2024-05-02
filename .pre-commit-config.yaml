@@ -28,3 +28,8 @@ repos:
     rev: v1.6.27
     hooks:
       - id: actionlint
+
+  - repo: https://codeberg.org/frnmst/md-toc
+    rev: 9.0.0
+    hooks:
+      - id: md-toc
