@@ -3,5 +3,8 @@ terraform {
 }
 
 inputs = {
-  tags = {}
+  environment = "prod"
+  tags = {
+    "environment" : "prod"
+  }
 }

@@ -3,7 +3,8 @@ terraform {
 }
 
 inputs = {
+  environment = "uat"
   tags = {
-    "environment": "UAT"
+    "environment" : "UAT"
   }
 }
