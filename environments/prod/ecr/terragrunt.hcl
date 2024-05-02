@@ -2,9 +2,8 @@ terraform {
   source = "${get_repo_root()}//modules/ecr-flask"
 }
 
-inputs = {
-  environment = "prod"
-  tags = {
-    "environment" : "prod"
-  }
+include "root" {
+  path = find_in_parent_folders()
 }
+
+inputs = {}
