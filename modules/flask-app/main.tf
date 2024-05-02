@@ -46,7 +46,7 @@ module "ecs_service" {
   version = "5.11.1"
 
 
-  name        = local.name
+  name        = "${local.container_name}-service"
   cluster_arn = module.ecs_cluster.arn
 
   cpu    = 1024
@@ -62,7 +62,7 @@ module "ecs_service" {
       cpu       = 64
       memory    = 96
       essential = true
-      image     = "797893214126.dkr.ecr.us-east-1.amazonaws.com/flask_app:latest"
+      image     = "797893214126.dkr.ecr.us-east-1.amazonaws.com/flask_app:${var.image-version}"
       port_mappings = [
         {
           name          = local.container_name
@@ -100,7 +100,7 @@ module "ecs_service" {
 
   subnet_ids = module.vpc.private_subnets
   security_group_rules = {
-    alb_ingress_3000 = {
+    alb_ingress = {
       type                     = "ingress"
       from_port                = local.container_port
       to_port                  = local.container_port
@@ -141,12 +141,14 @@ module "alb" {
   source  = "terraform-aws-modules/alb/aws"
   version = "~> 9.9"
 
-  name = local.name
+  name = "${local.container_name}-alb"
 
   load_balancer_type = "application"
 
   vpc_id  = module.vpc.vpc_id
   subnets = module.vpc.public_subnets
+
+  enable_deletion_protection = false
 
   # Security Group
   security_group_ingress_rules = {
@@ -165,7 +167,7 @@ module "alb" {
   }
 
   listeners = {
-    ex_http = {
+    http = {
       port     = 80
       protocol = "HTTP"
 
