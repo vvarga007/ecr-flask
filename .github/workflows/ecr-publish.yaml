@@ -1,5 +1,11 @@
 name: Docker image build and publish
 on:
+  push:
+    branches:
+      - main
+    paths:
+      - app/**
+
   workflow_dispatch:
     inputs:
       aws_account_id:
