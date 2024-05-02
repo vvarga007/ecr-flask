@@ -6,7 +6,7 @@ WORKDIR /opt/app
 
 COPY requirements.txt /opt/app/requirements.txt
 RUN mkdir -p /opt/app && \
-  pip3 install -r /opt/app/requirements.txt
+  pip3 install --no-cache-dir -r /opt/app/requirements.txt
 
 COPY . /opt/app
 
